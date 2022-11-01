@@ -5,11 +5,6 @@ import Footer from './components/Footer/Footer';
 import TeamsSection from './components/TeamsSection/TeamsSection';
 
 
-
-
-
-
-
 function App() {
 	const [teamsList, setTeamsList] = useState([]);
 	return (

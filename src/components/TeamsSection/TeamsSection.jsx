@@ -7,7 +7,6 @@ import "./TeamsSection.css"
 
 
 
-
 function TeamsSection(props) {
 	return (
 		<section className="team-section">

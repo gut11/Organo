@@ -68,7 +68,6 @@ function findTeamIndex(teamsList, formTeamName) {
 }
 
 function insertOnTeam(teamsList, setTeamsList, index, newMember) {
-	console.log("inserido")
 	const temp = teamsList;
 	temp[index].members.push(newMember);
 	setTeamsList([...temp]);

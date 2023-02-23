@@ -6,7 +6,7 @@ import "./Button.css"
 function Button(props){
 	return (
 		<React.Fragment>
-			<button id="card-form-button">{props.children}</button>
+			<button style={{backgroundColor:props.color}} className="card-form-button">{props.children}</button>
 		</React.Fragment>
 	)
 }

@@ -26,8 +26,10 @@ function CardForm(props) {
 			<Input value={role} setValue={setRole} type="text" label="Cargo" holder="Digite seu cargo" />
 			<Input value={image} setValue={setImage} type="text" label="Imagem" holder="Digite o link da sua imagem" />
 			<Input value={teamName} setValue={setTeamName} type="selection" label="Time" options={selectOptions} />
-			<Button>Criar Card</Button>
-			{formWarning !== "" && <Warning warning={formWarning}/>}
+			<Button color={"#6278f7"}>Criar Card</Button>
+			<Button color={"red"}>Deletar Card</Button>
+			<Button color={"#828c85"}>Refresh</Button>
+			{formWarning !== "" && <Warning warning={formWarning} />}
 		</Form>
 	)
 }
@@ -43,49 +45,36 @@ function formSubmit(event, props, formData, setFormWarning) {
 		role: formData.role,
 		image: formData.image
 	}
+	const buttonText = event.nativeEvent.submitter.innerHTML;
 	event.preventDefault();
-	if (isRepeated(props.teamsList, formData.name)){
-	   	setFormWarning("Não podem haver cards com nomes repetidos");
+	if (buttonText === "Criar Card") {
+		createCard(props,newMember,formData, setFormWarning);
+	} else if (buttonText === "Deletar Card"){
+		delCard(props,newMember, formData.teamName);
+	}
+	else if(buttonText === "Refresh"){
+		props.refresh();
+	}
+}
+
+function delCard(props, newMember, teamName){
+	props.removeMember(newMember, teamName);
+}
+
+function createCard(props, newMember, formData,setFormWarning) {
+	if (isRepeated(props.teamsList, formData.name)) {
+		setFormWarning("Não podem haver cards com nomes repetidos");
 		return;
-	}else
+	} else
 		setFormWarning("");
-	const index = findTeamIndex(props.teamsList, formData.teamName)
-	if (index !== -1)
-		insertOnTeam(props.teamsList, props.setTeamsList, index, newMember);
-	else
-		createNewTeam(props.teamsList, props.setTeamsList, formData.teamName, newMember);
-}
-
-
-
-function findTeamIndex(teamsList, formTeamName) {
-	let index = -1;
-	teamsList.forEach((team, teamIndex) => {
-		if (team.teamName === formTeamName)
-			index = teamIndex;
-	})
-	return index;
-}
-
-function insertOnTeam(teamsList, setTeamsList, index, newMember) {
-	const temp = teamsList;
-	temp[index].members.push(newMember);
-	setTeamsList([...temp]);
-}
-
-
-function createNewTeam(teamsList, setTeamsList, teamName, newMember) {
-	setTeamsList([...teamsList, {
-		teamName,
-		members: [newMember]
-	}])
+	props.addTeamsList(newMember, formData.teamName);
 }
 
 function isRepeated(teamsList, name) {
 	let repeated = false;
 	teamsList.forEach(team => {
 		team.members.forEach(member => {
-			if(member.name === name)
+			if (member.name === name)
 				repeated = true;
 		});
 	});

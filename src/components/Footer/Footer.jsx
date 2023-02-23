@@ -11,7 +11,7 @@ function Footer() {
 				<a href="/"><img src="images/ig.png" alt="Instagram icon" /></a>
 			</div>
 			<img src="images/logo.png" alt="logo" />
-			<p>Desenvolvido por Alura</p>
+			<p>Desenvolvido por Augusto Soares</p>
 		</footer>
 	)
 }

@@ -8,6 +8,7 @@ import "./TeamsSection.css"
 
 
 function TeamsSection(props) {
+	console.log(props.teamsList)
 	return (
 		<section className="team-section">
 			<div>
@@ -27,7 +28,7 @@ function TeamsSection(props) {
 			<TeamArea key={team.teamName} title={team.teamName} colors={colors}>
 				{team.members.map(member => {
 					return (
-						<Card key={member.name} name={member.name} role={member.role} src={member.image} color={colors.primary} />)
+						<Card key={member.name} name={member.name} role={member.role} src={member.img} color={colors.primary} />)
 				})}
 			</TeamArea>
 		)
@@ -37,11 +38,6 @@ function TeamsSection(props) {
 }
 
 export default TeamsSection
-
-
-
-
-
 
 
 
